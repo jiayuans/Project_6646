@@ -1,5 +1,5 @@
 #setwd("C:/UCHealth/RA/Project/EPIC-CF/Analysis_Jiayuan/Result/Simulation_output")
-setwd("C:/UCHealth/RA/Project/EPIC-CF/Analysis_Jiayuan/Result/Simulation_output/jm")
+setwd("C:/Users/jiayu/OneDrive/Desktop/BIOS6646")
 
 ###########################################################################
 # Read csv files
@@ -36,6 +36,8 @@ w.tau.inv.mean<-rep(NA,I)
 u.mean<-rep(NA,I)
 v.mean<-rep(NA,I)
 w.mean<-rep(NA,I)
+eta.mean<-rep(NA,I)
+eps.tau.inv.mean<-rep(NA,I)
 
 for(i in 1:I){ 
 Flag[i] <- ifelse(max(data_frames[[i]][,12])<2,1,0)
@@ -56,13 +58,17 @@ b1.mean[i] <-data_frames[[i]][13,5]
 a.mean[i] <-data_frames[[i]][14,5] 
 ga.mean[i] <-data_frames[[i]][15,5] 
 w.tau.inv.mean[i] <-data_frames[[i]][16,5] 
-u.mean[i] <-mean(data_frames[[i]][17:416,5])
-v.mean[i] <-mean(data_frames[[i]][417:816,5])
-w.mean[i] <-mean(data_frames[[i]][817:1216,5])
+eta.mean[i] <-data_frames[[i]][17,5] 
+eps.tau.inv.mean[i] <-data_frames[[i]][19,5]
+
+u.mean[i] <-mean(data_frames[[i]][20:419,5])
+v.mean[i] <-mean(data_frames[[i]][420:819,5])
+w.mean[i] <-mean(data_frames[[i]][820:1219,5])
+ 
 }
 
 Sim.results=cbind(Flag,B1.mean,B2.mean,B3.mean,cp1.mean,cp2.mean,c0.mean,c1.mean,c2.mean,c3.mean,c4.mean,u.tau.inv.mean,
-               b0.mean,b1.mean,a.mean,ga.mean,w.tau.inv.mean,u.mean,v.mean,w.mean)
+               b0.mean,b1.mean,a.mean,ga.mean,w.tau.inv.mean,eta.mean,eps.tau.inv.mean,u.mean,v.mean,w.mean)
 table(Flag)
 Sim.results.1 <- subset(Sim.results,Flag==1)
 round(colMeans(Sim.results.1),2)
