@@ -175,7 +175,7 @@ model {
   #### Run the model and produce plots
   res <- run.jags(model=modelrancp, burnin=20000, sample=1000, 
                   monitor=c("B1","B2","B3","cp1","cp2","c0","c","u.tau.inv",
-                            "b0","b","a","ga","w.tau.inv","eta","sigma",
+                            "b0","b","a","ga","w.tau.inv","eta","eps.tau","eps.tau.inv",
                             "u","v","w",
                             "u.tau","w.tau","cp1.mu","cp1.tau","cp2.temp","ll.a","ll.e","dev.a","dev.e","dic"), 
                   data=data, n.chains=2, inits=c(inits1,inits2), thin=10, module='dic')
