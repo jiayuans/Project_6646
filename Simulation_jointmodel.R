@@ -48,11 +48,10 @@ tt<-tt-0.25
     pull(min.stop)
   
   eta <- -0.1
-  mu = -0.2
   sigma <- 0.1  
   
   set.seed(123)
-  lt <- exp(log(min.stop_vector) + eta + rnorm(N, mean = mu, sd = sigma))
+  lt <- exp(log(min.stop_vector) + eta + rnorm(N, mean = 0, sd = sigma))
   sum(lt<tt) #400
   
   simdat.pe02 <- merge(data.frame(id=1:400,lt),simdat.pe01,by="id")
@@ -124,6 +123,7 @@ model {
         ll.a[i] <- log(L.a[i])
         w[i] ~ dnorm(0,w.tau)
         v[i] <- exp(ga*u[i]+w[i])
+        epsilon[i] ~ dnorm(0,eps.tau)	
         time.t0[i] <-  exp(log(time.t1[i]) + eta + epsilon)
         L.e[i] <- ifelse(Ti[i,1]!=0, prod(lambda[i,1:k.pe[i]]) * exp(v[i]*exp(b0+b*X1[i])*(time.t0[i]^a-time.tau[i]^a)), exp(v[i]*exp(b0+b*X1[i])*(time.t0[i]^a-time.tau[i]^a)))
         ll.e[i] <- log(L.e[i])
@@ -155,8 +155,6 @@ model {
 	ga ~ dnorm(0,0.0001)
 	w.tau ~ dgamma(0.001,0.001)
 	w.tau.inv <- 1/w.tau  ## variance 
-  epsilon ~ dnorm(eps.mu,eps.tau)	
-  eps.mu ~ dnorm(0,0.001)
   eps.tau ~ dgamma(0.001,0.001)
   eps.tau.inv <- 1/eps.tau  ## variance 
   eta ~ dnorm(0,0.0001)	
@@ -168,17 +166,17 @@ model {
                            X1=X1, k.pe=k.pe, time.t1=min.stop_vector, time.tau=time.tau, Ti=Ti)) 
   ###initial Values
   inits1 <- dump.format(list(c0=-4.6, c=c(0.1,0.17,0.1,0.1), u.tau=1, cp1=4.5, cp2.temp=10,
-                             b0=-4.5, b=0.25, a=1.8, w.tau=1, ga=0.25, eta=-0.5,eps.mu=-0.2,eps.tau=100,  
+                             b0=-4.5, b=0.25, a=1.8, w.tau=1, ga=0.25, eta=-0.5,eps.tau=100,  
                              .RNG.name="base::Super-Duper", .RNG.seed=1))
   inits2 <- dump.format(list(c0=-4.61, c=c(0.1,0.17,0.1,0.1)+0.01, u.tau=1, cp1=4.6, cp2.temp=10,
-                             b0=-4.51, b=0.26, a=1.81, w.tau=1, ga=0.26, eta=-0.51,eps.mu=-0.2,eps.tau=100, 
+                             b0=-4.51, b=0.26, a=1.81, w.tau=1, ga=0.26, eta=-0.51,eps.tau=100, 
                              .RNG.name="base::Super-Duper", .RNG.seed=2))
 
   #### Run the model and produce plots
   res <- run.jags(model=modelrancp, burnin=20000, sample=1000, 
                   monitor=c("B1","B2","B3","cp1","cp2","c0","c","u.tau.inv",
-                            "b0","b","a","ga","w.tau.inv","eta","eps.mu","eps.tau","eps.tau.inv","time.t0","time.t1",
-                            "u","v","w",
+                            "b0","b","a","ga","w.tau.inv","eta","eps.tau","eps.tau.inv","time.t0","time.t1",
+                            "u","v","w","epsilon",
                             "u.tau","w.tau","cp1.mu","cp1.tau","cp2.temp","ll.a","ll.e","dev.a","dev.e","dic"), 
                   data=data, n.chains=2, inits=c(inits1,inits2), thin=10, module='dic')
   
