@@ -47,7 +47,7 @@ tt<-tt-0.25
     distinct() %>%
     pull(min.stop)
   
-  eta <- -0.1
+  eta <- -0.2
   sigma <- 0.1  
   
   set.seed(123)
@@ -166,10 +166,10 @@ model {
                            X1=X1, k.pe=k.pe, time.t1=min.stop_vector, time.tau=time.tau, Ti=Ti)) 
   ###initial Values
   inits1 <- dump.format(list(c0=-4.6, c=c(0.1,0.17,0.1,0.1), u.tau=1, cp1=4.5, cp2.temp=10,
-                             b0=-4.5, b=0.25, a=1.8, w.tau=1, ga=0.25, eta=-0.5,eps.tau=100,  
+                             b0=-4.5, b=0.25, a=1.8, w.tau=1, ga=0.25, eta=-0.2,eps.tau=100,  
                              .RNG.name="base::Super-Duper", .RNG.seed=1))
   inits2 <- dump.format(list(c0=-4.61, c=c(0.1,0.17,0.1,0.1)+0.01, u.tau=1, cp1=4.6, cp2.temp=10,
-                             b0=-4.51, b=0.26, a=1.81, w.tau=1, ga=0.26, eta=-0.51,eps.tau=100, 
+                             b0=-4.51, b=0.26, a=1.81, w.tau=1, ga=0.26, eta=-0.21,eps.tau=100, 
                              .RNG.name="base::Super-Duper", .RNG.seed=2))
 
   #### Run the model and produce plots
