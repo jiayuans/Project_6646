@@ -1,0 +1,17 @@
++SingularityImage = "osdf:///ospool/ap40/data/jiayuan.shi/libr.sif"
+executable        = Simulation_recmodel2.R
+arguments = X1_data.$(Process).csv rec.sim.pe_data.$(Process).csv long.data.csv
+transfer_input_files = X1_data.$(Process).csv, rec.sim.pe_data.$(Process).csv, long.data.csv
+transfer_output_files = rec.result.$(Process).csv, rec.traceplot.$(Process).pdf
+
+log    = R.log.$(Cluster).$(Process)
+error  = R.err.$(Cluster).$(Process)
+output = R.out.$(Cluster).$(Process)
+
++JobDurationCategory = "Medium"
+
+request_cpus   = 1
+request_memory = 12GB
+request_disk   = 1GB
+
+queue 50

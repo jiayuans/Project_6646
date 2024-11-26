@@ -61,9 +61,9 @@ w.tau.inv.mean[i] <-data_frames[[i]][16,5]
 eta.mean[i] <-data_frames[[i]][17,5] 
 eps.tau.inv.mean[i] <-data_frames[[i]][19,5]
 
-u.mean[i] <-mean(data_frames[[i]][20:419,5])
-v.mean[i] <-mean(data_frames[[i]][420:819,5])
-w.mean[i] <-mean(data_frames[[i]][820:1219,5])
+u.mean[i] <-mean(data_frames[[i]][820:1219,5])
+v.mean[i] <-mean(data_frames[[i]][1220:1619,5])
+w.mean[i] <-mean(data_frames[[i]][1620:2019,5])
  
 }
 
