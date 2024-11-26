@@ -1,5 +1,5 @@
 +SingularityImage = "osdf:///ospool/ap40/data/jiayuan.shi/libr.sif"
-executable        = Simulation_recmodel2.R
+executable        = Simulation_recmodel.R
 arguments = X1_data.$(Process).csv rec.sim.pe_data.$(Process).csv long.data.csv
 transfer_input_files = X1_data.$(Process).csv, rec.sim.pe_data.$(Process).csv, long.data.csv
 transfer_output_files = rec.result.$(Process).csv, rec.traceplot.$(Process).pdf
