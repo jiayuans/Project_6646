@@ -84,8 +84,9 @@ model {
        ## Weibull baseline
         lambda0[i,j] <- a*(Ti[i,j])^(a-1)
         lambda[i,j] <- lambda0[i,j]*v[i]*exp(b0+b*X1[i])
-       }
+        }
         v[i] ~ dgamma(1/ph,1/ph) ## include ph with priors ~ gamma 
+        time.t0[i] ~ dexp(1/(ga1*v[i]+ga0))
         L.e[i] <- ifelse(Ti[i,1]!=0, prod(lambda[i,1:k.pe[i]]) * exp(v[i]*exp(b0+b*X1[i])*(time.t0[i]^a-time.tau[i]^a)), exp(v[i]*exp(b0+b*X1[i])*(time.t0[i]^a-time.tau[i]^a)))
         ll.e[i] <- log(L.e[i])
         phi[i] <- -log(L.e[i]) + 1000
@@ -98,19 +99,21 @@ model {
   b0 ~ dnorm(0,0.0001)	
   b ~ dnorm(0,0.0001)		
 	ph ~ dgamma(0.001,0.001)
+	ga1 ~ dnorm(0,0.0001)	
+	ga0 ~ dnorm(0,0.0001)	
 }"
 
   
   ####Observed DATA
   data <- dump.format(list(N=N, X1=X1,k.pe=k.pe, time.t0=time.t0, time.tau=time.tau, Ti=Ti)) 
   ###initial Values
-  inits1 <- dump.format(list(b0=-1.35, b=0.25, a=1.7, ph=.5,
+  inits1 <- dump.format(list(b0=-1.35, b=0.25, a=1.7, ph=.5, ga0=0.8, ga1=1,
                              .RNG.name="base::Super-Duper", .RNG.seed=1))
-  inits2 <- dump.format(list(b0=-1.36,b=0.26, a=1.71, ph=.5,
+  inits2 <- dump.format(list(b0=-1.36,b=0.26, a=1.71, ph=.5, ga0=0.8, ga1=1,
                              .RNG.name="base::Super-Duper", .RNG.seed=2))
   #### Run the model and produce plots
   res <- run.jags(model=modelrancp, burnin=5000, sample=5000, 
-                  monitor=c("b0","b","a","ph","v","ll.e","dev.e","dic"), 
+                  monitor=c("b0","b","a","ph","ga0","ga1","v","ll.e","dev.e","dic"), 
                   data=data, n.chains=2, inits=c(inits1,inits2), thin=2, module='dic')
     
   summary <- summary(res)

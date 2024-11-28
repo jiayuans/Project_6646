@@ -90,10 +90,10 @@ for (r in 1:I){
   result <- poisson.d(alpha=1.7,beta=0.25,beta0=-1.35,x=X1,ph=.5,TTei=tt)
   
   vi <- result$vi
-  ga1 <- 2
-  ga0 <- 2
-  #t <- rexp(N, rate=1/(ga1*vi+ga0))
-  t <- ga1*vi+ga0
+  ga1 <- 1
+  ga0 <- 0.8
+  t <- rexp(N, rate=1/(ga1*vi+ga0))
+  #t <- ga1*vi+ga0
 
   t_df <- as.data.frame(t)
   filename <- paste0("t_data.", r-1, ".csv")
