@@ -114,7 +114,7 @@ model {
   #### Run the model and produce plots
   res <- run.jags(model=modelrancp, burnin=5000, sample=5000, 
                   monitor=c("b0","b","a","ph","ga0","ga1","v","ll.e","dev.e","dic"), 
-                  data=data, n.chains=2, inits=c(inits1,inits2), thin=2, module='dic')
+                  data=data, n.chains=2, inits=c(inits1,inits2), thin=10, module='dic')
     
   summary <- summary(res)
   result_df <- as.data.frame(summary)

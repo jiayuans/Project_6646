@@ -17,6 +17,8 @@ b0.mean<-rep(NA,I)
 b1.mean<-rep(NA,I)
 a.mean<-rep(NA,I)
 ph.mean<-rep(NA,I)
+ga0.mean<-rep(NA,I)
+ga1.mean<-rep(NA,I)
 v.mean<-rep(NA,I)
 
 for(i in 1:I){ 
@@ -25,10 +27,12 @@ b0.mean[i] <-data_frames[[i]][1,5]
 b1.mean[i] <-data_frames[[i]][2,5] 
 a.mean[i] <-data_frames[[i]][3,5] 
 ph.mean[i] <-data_frames[[i]][4,5] 
-v.mean[i] <-mean(data_frames[[i]][5:404,5])
+ga0.mean[i] <-data_frames[[i]][5,5] 
+ga1.mean[i] <-data_frames[[i]][6,5] 
+v.mean[i] <-mean(data_frames[[i]][7:406,5])
 }
 
-Sim.results=cbind(Flag,b0.mean,b1.mean,a.mean,ph.mean,v.mean)
+Sim.results=cbind(Flag,b0.mean,b1.mean,a.mean,ph.mean,ga0.mean,ga1.mean,v.mean)
 table(Flag)
 Sim.results.1 <- subset(Sim.results,Flag==1)
 round(colMeans(Sim.results.1),2)
