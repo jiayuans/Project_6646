@@ -96,16 +96,16 @@ model {
   dev.e <- -2*log_lik0.e
   ## prior distributions
   a ~ dgamma(0.01,0.01)
-  b0 ~ dnorm(0,0.0001)	
-  b ~ dnorm(0,0.0001)		
-	ph ~ dgamma(0.001,0.001)
-	ga1 ~ dnorm(0,0.0001)	
-	ga0 ~ dnorm(0,0.0001)	
+  b0 ~ dnorm(0,0.0001)	#b0 ~ dnorm(0,0.1)	
+  b ~ dnorm(0,0.0001)		#b ~ dnorm(0,0.1)
+	ph ~ dgamma(0.001,0.001) #ph ~ dgamma(0.01,0.01)
+	ga1 ~ dgamma(0.01,0.01)	 #ga1 ~ dnorm(0,0.0001)
+	ga0 ~ dgamma(0.01,0.01)	 #ga0 ~ dnorm(0,0.0001)
 }"
 
   
   ####Observed DATA
-  data <- dump.format(list(N=N, X1=X1,k.pe=k.pe, time.t0=time.t0, time.tau=time.tau, Ti=Ti)) 
+  data <- dump.format(list(N=N, X1=X1,k.pe=k.pe, time.tau=time.tau, Ti=Ti)) 
   ###initial Values
   inits1 <- dump.format(list(b0=-1.35, b=0.25, a=1.7, ph=.5, ga0=0.8, ga1=1,
                              .RNG.name="base::Super-Duper", .RNG.seed=1))
@@ -113,8 +113,8 @@ model {
                              .RNG.name="base::Super-Duper", .RNG.seed=2))
   #### Run the model and produce plots
   res <- run.jags(model=modelrancp, burnin=5000, sample=5000, 
-                  monitor=c("b0","b","a","ph","ga0","ga1","v","ll.e","dev.e","dic"), 
-                  data=data, n.chains=2, inits=c(inits1,inits2), thin=10, module='dic')
+                  monitor=c("b0","b","a","ph","ga0","ga1","time.t0", "v","ll.e","dev.e","dic"), 
+                  data=data, n.chains=2, inits=c(inits1,inits2), thin=2, module='dic')
     
   summary <- summary(res)
   result_df <- as.data.frame(summary)
