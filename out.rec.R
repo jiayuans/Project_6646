@@ -42,11 +42,11 @@ round(colMeans(Sim.results),2)
 #0.03    -1.09     0.10     1.83     4.40     1.18     0.80     3.38 
 
 
-
-b0=rep(-2,I)
-b1=rep(0.2,I)
-a=rep(0.4,I) 
-ph=rep(-0.2,I)
+## Metrics:
+b0=rep(-1.35,I)
+b1=rep(0.25,I)
+a=rep(1.7,I) 
+ph=rep(0.5,I)
 
 dat <- as.data.frame(cbind(Sim.results,b0,b1,a,ph))
 bias <- c(sum(dat$b0.mean-dat$b0)/I, sum(dat$b1.mean-dat$b1)/I, sum(dat$a.mean-dat$a)/I, sum(dat$ph.mean-dat$ph)/I)
@@ -58,10 +58,10 @@ a.low<-rep(NA,I)
 ph.low<-rep(NA,I)
 
 for(i in 1:I){ 
-  b0.low[i] <-data_frames[[i]][804,2] 
-  b1.low[i] <-data_frames[[i]][805,2] 
-  a.low[i] <-data_frames[[i]][806,2] 
-  ph.low[i] <-data_frames[[i]][807,2]
+  b0.low[i] <-data_frames[[i]][1,2] 
+  b1.low[i] <-data_frames[[i]][2,2] 
+  a.low[i] <-data_frames[[i]][3,2] 
+  ph.low[i] <-data_frames[[i]][4,2]
 }
 
 
@@ -72,10 +72,10 @@ ph.high<-rep(NA,I)
 
 
 for(i in 1:I){ 
-  b0.high[i] <-data_frames[[i]][804,4] 
-  b1.high[i] <-data_frames[[i]][805,4] 
-  a.high[i] <-data_frames[[i]][806,4] 
-  ph.high[i] <-data_frames[[i]][807,4]
+  b0.high[i] <-data_frames[[i]][1,4] 
+  b1.high[i] <-data_frames[[i]][2,4] 
+  a.high[i] <-data_frames[[i]][3,4] 
+  ph.high[i] <-data_frames[[i]][4,4]
 }
 
 dat1 <- as.data.frame(cbind(dat,b0.low,b1.low,a.low,ph.low,b0.high,b1.high,a.high,ph.high))
