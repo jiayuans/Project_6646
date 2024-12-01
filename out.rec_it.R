@@ -37,3 +37,19 @@ table(Flag)
 Sim.results.1 <- subset(Sim.results,Flag==1)
 round(colMeans(Sim.results.1),2)
 round(colMeans(Sim.results),2)
+
+# ga0, ga1 = 0.5:
+#> round(colMeans(Sim.results.1),2)
+#Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
+#1.00    -1.35     0.26     1.70     0.50     0.51     0.48     1.00 
+#> round(colMeans(Sim.results),2)
+#Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
+#0.68    -1.18     0.13     1.71     0.83     0.54     0.52     1.08 
+
+# ga0, ga1 = 0.2:
+#> round(colMeans(Sim.results.1),2)
+#Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
+#1.00    -1.35     0.26     1.70     0.50     0.51     0.48     1.00 
+#> round(colMeans(Sim.results),2)
+#Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
+#0.68    -1.18     0.13     1.71     0.83     0.54     0.52     1.08 
