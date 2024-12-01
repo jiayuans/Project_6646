@@ -22,7 +22,7 @@ X1=c(rep(1,N/2),rep(0,N/2))
 set.seed(123)
 
 #############################################################
-simdat.pe00 <- as.data.frame(read.csv(list.files(pattern="rec.sim.pe_data.")))
+simdat.pe00 <- as.data.frame(read.csv(list.files(pattern="rec.sim.pe_data0.")))
 #############################################################
 
 timeS <- as.data.frame(cbind(id,t)) ## left truncation time
@@ -114,13 +114,13 @@ model {
     
   summary <- summary(res)
   result_df <- as.data.frame(summary)
-  text <- list.files(pattern="rec.sim.pe_data.")
+  text <- list.files(pattern="rec.sim.pe_data0.")
   num <- unlist(lapply(strsplit(text,'.',fixed=TRUE),function(x) x[[4]]))
-  write.csv(result_df, paste0("rec.result.",num,".csv"))
+  write.csv(result_df, paste0("rec.result0.",num,".csv"))
   
   res_jm <- res$mcmc
   vars<-mcmc.list(res_jm[[1]][,c(1:16)],res_jm[[2]][,c(1:16)])
-  pdf(file = paste0("rec.traceplot.",num,".pdf"),   # The directory you want to save the file in
+  pdf(file = paste0("rec.traceplot0.",num,".pdf"),   # The directory you want to save the file in
       width = 4, # The width of the plot in inches
       height = 4) # The height of the plot in inches
   traplot(vars)

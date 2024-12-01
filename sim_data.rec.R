@@ -22,7 +22,7 @@ tt<-round(last.tt)
 X1=c(rep(1,N/2),rep(0,N/2))
 
 ###set number of iterations#################################
-I=52
+I=100
 set.seed(123)
 
 #########################################################################
@@ -90,7 +90,7 @@ for (r in 1:I){
   simdat.pe00 <- poisson.d(alpha=1.7,beta=0.25,beta0=-1.35,x=X1,ph=.5,TTei=tt)
 
   simdat.pe_df <- as.data.frame(simdat.pe00)
-  filename <- paste0("rec.sim.pe_data.", r-1, ".csv")
+  filename <- paste0("rec.sim.pe_data0.", r-1, ".csv")
   write.csv(simdat.pe_df, file = filename, row.names = FALSE)
 } 
  
