@@ -22,8 +22,8 @@ X1=c(rep(1,N/2),rep(0,N/2))
 set.seed(123)
 
 #############################################################
-t <- as.data.frame(read.csv(list.files(pattern="t_dataA.")))[,1]
-simdat.pe00 <- as.data.frame(read.csv(list.files(pattern="rec.sim.pe_dataA.")))
+t <- as.data.frame(read.csv(list.files(pattern="t_dataB.")))[,1]
+simdat.pe00 <- as.data.frame(read.csv(list.files(pattern="rec.sim.pe_dataB.")))
 #############################################################
 
 timeS <- as.data.frame(cbind(id,t)) ## left truncation time
