@@ -90,8 +90,8 @@ for (r in 1:I){
   result <- poisson.d(alpha=1.7,beta=0.25,beta0=-1.35,x=X1,ph=.5,TTei=tt)
   
   vi <- result$vi
-  ga1 <- 1
-  ga0 <- 0.8
+  ga1 <- 0.001
+  ga0 <- 6
   t <- rexp(N, rate=1/(ga1*vi+ga0))
   #t <- ga1*vi+ga0
 
