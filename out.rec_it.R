@@ -1,4 +1,4 @@
-setwd("C:/Users/jiayu/OneDrive/Desktop/BIOS6646_it2")
+setwd("C:/Users/jiayu/OneDrive/Desktop/BIOS6646_it")
 
 ###########################################################################
 # Read csv files
