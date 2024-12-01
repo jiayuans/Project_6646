@@ -99,8 +99,8 @@ model {
   b0 ~ dnorm(0,0.0001)	#b0 ~ dnorm(0,0.1)	
   b ~ dnorm(0,0.0001)		#b ~ dnorm(0,0.1)
 	ph ~ dgamma(0.001,0.001) #ph ~ dgamma(0.01,0.01)
-	ga1 ~ dgamma(0.01, 0.01)	 #ga1 ~ dnorm(0,0.0001)
-	ga0 ~ dgamma(0.01, 0.01)	 #ga0 ~ dnorm(0,0.0001)
+	ga1 ~ dnorm(0,0.0001)	 #ga1 ~ dnorm(0,0.0001)
+	ga0 ~ dnorm(0,0.0001)	 #ga0 ~ dnorm(0,0.0001)
 }"
 
   

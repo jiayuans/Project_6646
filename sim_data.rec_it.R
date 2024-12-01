@@ -8,7 +8,7 @@ setwd(dirg)
 ##################################################################
 
 long.time <- read.csv("long.data.csv")
-first.tt <- long.time[,2]
+#first.tt <- long.time[,2]
 last.tt <- long.time[,3]
 
 ####time of first visit and last visit#######
@@ -22,7 +22,7 @@ tt<-round(last.tt)
 X1=c(rep(1,N/2),rep(0,N/2))
 
 ###set number of iterations#################################
-I=52
+I=100
 set.seed(123)
 
 #########################################################################
