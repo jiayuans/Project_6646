@@ -22,8 +22,8 @@ X1=c(rep(1,N/2),rep(0,N/2))
 set.seed(123)
 
 #############################################################
-t <- as.data.frame(read.csv(list.files(pattern="t_dataC.")))[,1]
-simdat.pe00 <- as.data.frame(read.csv(list.files(pattern="rec.sim.pe_dataC.")))
+t <- as.data.frame(read.csv(list.files(pattern="t_dataB.")))[,1]
+simdat.pe00 <- as.data.frame(read.csv(list.files(pattern="rec.sim.pe_dataB.")))
 #############################################################
 
 timeS <- as.data.frame(cbind(id,t)) ## left truncation time
@@ -107,9 +107,9 @@ model {
   ####Observed DATA
   data <- dump.format(list(N=N, X1=X1,k.pe=k.pe, time.t0=time.t0, time.tau=time.tau, Ti=Ti)) 
   ###initial Values
-  inits1 <- dump.format(list(b0=-1.35, b=0.25, a=1.7, ph=.5, ga0=0.2, ga1=0.2,
+  inits1 <- dump.format(list(b0=-1.35, b=0.25, a=1.7, ph=.5, ga0=0.5, ga1=0.2,
                              .RNG.name="base::Super-Duper", .RNG.seed=1))
-  inits2 <- dump.format(list(b0=-1.36,b=0.26, a=1.71, ph=.5, ga0=0.2, ga1=0.2,
+  inits2 <- dump.format(list(b0=-1.36,b=0.26, a=1.71, ph=.5, ga0=0.5, ga1=0.2,
                              .RNG.name="base::Super-Duper", .RNG.seed=2))
   #### Run the model and produce plots
   res <- run.jags(model=modelrancp, burnin=5000, sample=5000, 
@@ -118,13 +118,13 @@ model {
     
   summary <- summary(res)
   result_df <- as.data.frame(summary)
-  text <- list.files(pattern="rec.sim.pe_dataC.")
+  text <- list.files(pattern="rec.sim.pe_dataB.")
   num <- unlist(lapply(strsplit(text,'.',fixed=TRUE),function(x) x[[4]]))
-  write.csv(result_df, paste0("rec.result_itC.",num,".csv"))
+  write.csv(result_df, paste0("rec.result_itB.",num,".csv"))
   
   res_jm <- res$mcmc
   vars<-mcmc.list(res_jm[[1]][,c(1:16)],res_jm[[2]][,c(1:16)])
-  pdf(file = paste0("rec.traceplot_itC.",num,".pdf"),   # The directory you want to save the file in
+  pdf(file = paste0("rec.traceplot_itB.",num,".pdf"),   # The directory you want to save the file in
       width = 4, # The width of the plot in inches
       height = 4) # The height of the plot in inches
   traplot(vars)
