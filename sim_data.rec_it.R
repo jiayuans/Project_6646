@@ -91,16 +91,16 @@ for (r in 1:I){
   
   vi <- result$vi
   ga1 <- 0.2
-  ga0 <- 0.5
+  ga0 <- 0.2
   t <- rexp(N, rate=1/(ga1*vi+ga0))
   #t <- ga1*vi+ga0
 
   t_df <- as.data.frame(t)
-  filename <- paste0("t_dataB.", r-1, ".csv")
+  filename <- paste0("t_dataC.", r-1, ".csv")
   write.csv(t_df, file = filename, row.names = FALSE)
   
   simdat.pe_df <- as.data.frame(result$data)
-  filename <- paste0("rec.sim.pe_dataB.", r-1, ".csv")
+  filename <- paste0("rec.sim.pe_dataC.", r-1, ".csv")
   write.csv(simdat.pe_df, file = filename, row.names = FALSE)
 } 
  
