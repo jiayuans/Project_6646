@@ -90,17 +90,17 @@ for (r in 1:I){
   result <- poisson.d(alpha=1.7,beta=0.25,beta0=-1.35,x=X1,ph=.5,TTei=tt)
   
   vi <- result$vi
-  ga1 <- 0.2
-  ga0 <- 0.2
+  ga1 <- 1
+  ga0 <- 1
   t <- rexp(N, rate=1/(ga1*vi+ga0))
   #t <- ga1*vi+ga0
 
   t_df <- as.data.frame(t)
-  filename <- paste0("t_dataC.", r-1, ".csv")
+  filename <- paste0("t_dataD.", r-1, ".csv")
   write.csv(t_df, file = filename, row.names = FALSE)
   
   simdat.pe_df <- as.data.frame(result$data)
-  filename <- paste0("rec.sim.pe_dataC.", r-1, ".csv")
+  filename <- paste0("rec.sim.pe_dataD.", r-1, ".csv")
   write.csv(simdat.pe_df, file = filename, row.names = FALSE)
 } 
  

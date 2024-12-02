@@ -46,16 +46,36 @@ round(colMeans(Sim.results),2)
 #Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
 #0.68    -1.18     0.13     1.71     0.83     0.54     0.52     1.08 
 
+# ga0=0.2,ga1=0.5:
+#> round(colMeans(Sim.results.1),2)
+#Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
+#1.00    -1.35     0.25     1.70     0.50     0.20     0.50     1.00 
+#> round(colMeans(Sim.results),2)
+#Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
+#0.88    -1.30     0.21     1.70     0.56     0.21     0.51     1.01
+
+# ga0=0.5,ga1=0.2:
+#> round(colMeans(Sim.results.1),2)
+#Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
+#1.00    -1.35     0.25     1.70     0.50     0.50     0.20     1.00 
+#> round(colMeans(Sim.results),2)
+#Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
+#0.96    -1.33     0.23     1.70     0.52     0.50     0.20     1.00 
+
 # ga0, ga1 = 0.2:
-
-
+#> round(colMeans(Sim.results.1),2)
+#Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
+#1.00    -1.34     0.25     1.70     0.50     0.20     0.20     1.00 
+#> round(colMeans(Sim.results),2)
+#Flag  b0.mean  b1.mean   a.mean  ph.mean ga0.mean ga1.mean   v.mean 
+#0.97    -1.34     0.25     1.70     0.50     0.20     0.20     1.00 
 
 ## Metrics:
 b0=rep(-1.35,I)
 b1=rep(0.25,I)
 a=rep(1.7,I) 
 ph=rep(0.5,I)
-ga0=rep(0.5,I) 
+ga0=rep(0.2,I) 
 ga1=rep(0.5,I)
 
 dat <- as.data.frame(cbind(Sim.results,b0,b1,a,ph,ga0,ga1))
@@ -110,6 +130,6 @@ dat1$ga1.cp <- ifelse(dat1$ga1>dat1$ga1.low & dat1$ga1<dat1$ga1.high,1,0)
 
 cp <- c(sum(dat1$b0.cp)/I,sum(dat1$b1.cp)/I,sum(dat1$a.cp)/I,sum(dat1$ph.cp)/I,sum(dat1$ga0.cp)/I,sum(dat1$ga1.cp)/I)
 
-cbind(round(bias,3),round(mse,3),round(cp,3))
+cbind(round(bias,4),round(mse,4),round(cp,3))
 
 

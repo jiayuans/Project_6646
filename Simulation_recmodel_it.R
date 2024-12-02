@@ -22,8 +22,8 @@ X1=c(rep(1,N/2),rep(0,N/2))
 set.seed(123)
 
 #############################################################
-t <- as.data.frame(read.csv(list.files(pattern="t_dataC.")))[,1]
-simdat.pe00 <- as.data.frame(read.csv(list.files(pattern="rec.sim.pe_dataC.")))
+t <- as.data.frame(read.csv(list.files(pattern="t_dataD.")))[,1]
+simdat.pe00 <- as.data.frame(read.csv(list.files(pattern="rec.sim.pe_dataD.")))
 #############################################################
 
 timeS <- as.data.frame(cbind(id,t)) ## left truncation time
@@ -69,9 +69,8 @@ for (i in 1:N){
       k.pe[i] <- min(na.indices)-1}
 }
 
-  ############Model in the JAGS format#####################
-  ############Two fixed CP#####################  
-  modelrancp <- "
+############Model in the JAGS format#####################
+modelrancp <- "
 data { 
   for(i in 1:N){
        zeros[i]<- 0
@@ -85,7 +84,7 @@ model {
         lambda0[i,j] <- a*(Ti[i,j])^(a-1)
         lambda[i,j] <- lambda0[i,j]*v[i]*exp(b0+b*X1[i])
         }
-        v[i] ~ dgamma(1/ph,1/ph) ## include ph with priors ~ gamma 
+        v[i] ~ dgamma(1/ph,1/ph) 
         time.t0[i] ~ dexp(1/(ga1*v[i]+ga0))
         L.e[i] <- ifelse(Ti[i,1]!=0, prod(lambda[i,1:k.pe[i]]) * exp(v[i]*exp(b0+b*X1[i])*(time.t0[i]^a-time.tau[i]^a)), exp(v[i]*exp(b0+b*X1[i])*(time.t0[i]^a-time.tau[i]^a)))
         ll.e[i] <- log(L.e[i])
@@ -96,20 +95,20 @@ model {
   dev.e <- -2*log_lik0.e
   ## prior distributions
   a ~ dgamma(0.01,0.01)
-  b0 ~ dnorm(0,0.0001)	#b0 ~ dnorm(0,0.1)	
-  b ~ dnorm(0,0.0001)		#b ~ dnorm(0,0.1)
-	ph ~ dgamma(0.001,0.001) #ph ~ dgamma(0.01,0.01)
-	ga1 ~ dnorm(0,0.0001)	 #ga1 ~ dnorm(0,0.0001)
-	ga0 ~ dnorm(0,0.0001)	 #ga0 ~ dnorm(0,0.0001)
+  b0 ~ dnorm(0,0.0001)		
+  b ~ dnorm(0,0.0001)		
+	ph ~ dgamma(0.001,0.001) 
+	ga1 ~ dnorm(0,0.0001)	 
+	ga0 ~ dnorm(0,0.0001)	 
 }"
 
   
   ####Observed DATA
   data <- dump.format(list(N=N, X1=X1,k.pe=k.pe, time.t0=time.t0, time.tau=time.tau, Ti=Ti)) 
   ###initial Values
-  inits1 <- dump.format(list(b0=-1.35, b=0.25, a=1.7, ph=.5, ga0=0.2, ga1=0.2,
+  inits1 <- dump.format(list(b0=-1.35, b=0.25, a=1.7, ph=.5, ga0=1, ga1=1,
                              .RNG.name="base::Super-Duper", .RNG.seed=1))
-  inits2 <- dump.format(list(b0=-1.36,b=0.26, a=1.71, ph=.5, ga0=0.2, ga1=0.2,
+  inits2 <- dump.format(list(b0=-1.36,b=0.26, a=1.71, ph=.5, ga0=1, ga1=1,
                              .RNG.name="base::Super-Duper", .RNG.seed=2))
   #### Run the model and produce plots
   res <- run.jags(model=modelrancp, burnin=5000, sample=5000, 
@@ -118,13 +117,13 @@ model {
     
   summary <- summary(res)
   result_df <- as.data.frame(summary)
-  text <- list.files(pattern="rec.sim.pe_dataC.")
+  text <- list.files(pattern="rec.sim.pe_dataD.")
   num <- unlist(lapply(strsplit(text,'.',fixed=TRUE),function(x) x[[4]]))
-  write.csv(result_df, paste0("rec.result_itC.",num,".csv"))
+  write.csv(result_df, paste0("rec.result_itD.",num,".csv"))
   
   res_jm <- res$mcmc
   vars<-mcmc.list(res_jm[[1]][,c(1:16)],res_jm[[2]][,c(1:16)])
-  pdf(file = paste0("rec.traceplot_itC.",num,".pdf"),   # The directory you want to save the file in
+  pdf(file = paste0("rec.traceplot_itD.",num,".pdf"),   # The directory you want to save the file in
       width = 4, # The width of the plot in inches
       height = 4) # The height of the plot in inches
   traplot(vars)
