@@ -106,9 +106,9 @@ model {
   ####Observed DATA
   data <- dump.format(list(N=N, X1=X1,k.pe=k.pe, time.t0=time.t0, time.tau=time.tau, Ti=Ti)) 
   ###initial Values
-  inits1 <- dump.format(list(b0=-1.35, b=0.25, a=1.7, ph=.5, ga0=1, ga1=1,
+  inits1 <- dump.format(list(b0=-1.35, b=0.25, a=1.7, ph=.5, ga0=0.8, ga1=0.8,
                              .RNG.name="base::Super-Duper", .RNG.seed=1))
-  inits2 <- dump.format(list(b0=-1.36,b=0.26, a=1.71, ph=.5, ga0=1, ga1=1,
+  inits2 <- dump.format(list(b0=-1.36,b=0.26, a=1.71, ph=.5, ga0=0.8, ga1=0.8,
                              .RNG.name="base::Super-Duper", .RNG.seed=2))
   #### Run the model and produce plots
   res <- run.jags(model=modelrancp, burnin=5000, sample=5000, 

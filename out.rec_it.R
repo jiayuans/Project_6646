@@ -1,12 +1,12 @@
-setwd("C:/Users/jiayu/OneDrive/Desktop/BIOS6646_it/ga0_0.2_ga1_0.5")
+setwd("C:/Users/jiayu/OneDrive/Desktop/BIOS6646_it/ga_0.8")
 
 ###########################################################################
 # Read csv files
-text <- list.files(pattern="rec.result_itA.")
+text <- list.files(pattern="rec.result_itD.")
 num <- as.numeric(unlist(lapply(strsplit(text,'.',fixed=TRUE),function(x) x[[3]])))
 
 data_frames <- lapply(num, function(i) {
-  file_name <- paste0("rec.result_itA.", i, ".csv") 
+  file_name <- paste0("rec.result_itD.", i, ".csv") 
   read.csv(file_name)
 })
 
